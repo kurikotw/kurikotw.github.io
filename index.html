@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuriko | Sound Designer</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #1e1b1a;
+            --card-bg: #2d2826;
+            --card-border: #3d3634;
+            --text-main: #f5f0ed;
+            --text-muted: #bdaea6;
+            --accent-green: #4ba383;
+            --accent-pink: #d95584;
+            --btn-bg: #3a3431;
+            --btn-hover: #4a423e;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- Bento Grid System --- */
+        .bento-container {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr); /* 手機版單欄 */
+            gap: 16px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* 平板版面 (2欄) */
+        @media (min-width: 600px) {
+            .bento-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .item-profile, .item-featured, .item-sound, .item-bio, .item-sns, .item-contact { 
+                grid-column: span 2; 
+            }
+        }
+
+        /* 桌機版面 (4欄 - 完美拼圖) */
+        @media (min-width: 900px) {
+            .bento-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .item-profile  { grid-column: span 2; grid-row: span 2; }
+            .item-featured { grid-column: span 2; grid-row: span 2; }
+            .item-sound    { grid-column: span 2; grid-row: span 2; }
+            .item-bio      { grid-column: span 2; grid-row: span 1; }
+            .item-sns      { grid-column: span 2; grid-row: span 1; }
+            .item-contact  { grid-column: span 4; grid-row: span 1; }
+        }
+
+        /* --- Bento Box Base Style --- */
+        .bento-box {
+            background-color: var(--card-bg);
+            border-radius: 28px;
+            padding: 28px;
+            border: 1px solid var(--card-border);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .bento-link-box {
+            text-decoration: none;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .bento-link-box:hover, .bento-interactive-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+            border-color: var(--accent-green);
+            background-color: var(--btn-bg);
+        }
+
+        /* 連結右上角的圖示 */
+        .corner-icon {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translate(-10px, 10px);
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .bento-link-box:hover .corner-icon, .bento-interactive-box:hover .featured-item.active .corner-icon {
+            opacity: 1;
+            color: var(--accent-green);
+            transform: translate(0, 0);
+        }
+
+        /* --- Section: Profile --- */
+        .item-profile {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(145deg, var(--card-bg), #24201e);
+        }
+
+        .avatar-container {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            border: 4px solid var(--btn-bg);
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            margin: 0 0 12px 0;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .catchphrase-box {
+            height: 24px;
+            position: relative;
+            width: 100%;
+        }
+
+        .catchphrase {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            font-style: italic;
+            color: var(--accent-green);
+            font-size: 15px;
+        }
+
+        .catchphrase.active { opacity: 1; }
+
+        /* --- Section: Featured Works (Carousel) --- */
+        .item-featured {
+            padding: 0; /* 讓內部的 a 標籤完整填滿，方便點擊 */
+            cursor: pointer;
+        }
+
+        .featured-item {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            padding: 28px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            pointer-events: none; /* 隱藏時不可點擊 */
+            text-decoration: none;
+            color: var(--text-main);
+            z-index: 1;
+        }
+
+        .featured-item.active {
+            opacity: 1;
+            pointer-events: auto; /* 顯示時可點擊 */
+            z-index: 2;
+        }
+
+        .featured-label {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--accent-pink);
+            margin-bottom: 12px;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .featured-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px; /* 原本是 12px，縮小一點讓位給客戶名稱 */
+            line-height: 1.3;
+        }
+
+        /* 新增：客戶名稱的樣式 */
+        .featured-client {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+        
+        .featured-client i {
+            font-size: 11px;
+            color: var(--accent-green); /* 用主題綠色點綴一下圖示 */
+        }
+
+        .featured-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-top: auto; 
+            padding-bottom: 16px; /* 留出空間給輪播點 */
+        }
+
+        /* 輪播進度點 */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 24px;
+            left: 28px;
+            display: flex;
+            gap: 6px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--text-muted);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            opacity: 1;
+            background-color: var(--accent-green);
+            width: 18px;
+            border-radius: 4px;
+        }
+
+        /* --- Section: Bio Tags --- */
+        .item-bio {
+            justify-content: center;
+        }
+        
+        .bio-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .bio-tag {
+            background-color: var(--btn-bg);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bio-tag img.flag {
+            width: 16px;
+            height: 12px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* --- Section: Sound Hub --- */
+        .box-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .box-title i {
+            color: var(--accent-green);
+        }
+
+        .sound-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .sound-btn {
+            display: flex;
+            align-items: center;
+            background-color: var(--btn-bg);
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 14px 20px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .sound-btn i, .sound-btn .custom-icon {
+            margin-right: 14px;
+            font-size: 18px;
+            color: var(--accent-green);
+            width: 20px;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        .sound-btn:hover {
+            background-color: var(--btn-hover);
+            border-color: var(--accent-green);
+            transform: translateX(6px); 
+        }
+
+        .sound-btn.primary {
+            background-color: rgba(75, 163, 131, 0.1);
+            border-color: rgba(75, 163, 131, 0.3);
+        }
+        .sound-btn.primary:hover {
+            background-color: rgba(75, 163, 131, 0.2);
+            border-color: var(--accent-green);
+        }
+
+        /* --- Section: SNS Grid --- */
+        .sns-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+        }
+
+        .sns-btn {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--btn-bg);
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 18px;
+            font-size: 22px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--card-border);
+        }
+
+        .sns-btn:hover {
+            background-color: var(--btn-hover);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .sns-btn:hover .custom-icon {
+            background-color: var(--accent-green);
+        }
+
+        .custom-icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            background-color: currentColor; 
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+            transition: background-color 0.3s ease;
+        }
+
+        /* --- Section: Contact --- */
+        .item-contact {
+            background-color: var(--accent-green);
+            color: var(--bg-color);
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 24px;
+            text-decoration: none;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .item-contact:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(75, 163, 131, 0.4);
+            background-color: #58b896;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bento-container">
+        
+        <!-- 1. Profile Box (2x2) -->
+        <div class="bento-box item-profile">
+            <div class="avatar-container">
+                <img src="../image/head_kuriko_icon.jpg" alt="Kuriko Avatar" onerror="this.src='https://placehold.co/130x130/2d2826/4ba383?text=K'">
+            </div>
+            <h1>Kuriko</h1>
+            <div class="catchphrase-box">
+                <div class="catchphrase active">用聲音跟大家說個故事吧！</div>
+                <div class="catchphrase">Sound Your Story!</div>
+                <div class="catchphrase">音で語ろう！</div>
+            </div>
+        </div>
+
+        <!-- 2. Featured Works Carousel (2x2) -->
+        <div class="bento-box bento-interactive-box item-featured" id="featured-carousel">
+            
+            <!-- Work 1 -->
+            <a href="https://sites.google.com/view/kuriko-tw/works/pikmin4" class="featured-item active" target="_blank">
+                <i class="fa-solid fa-link corner-icon"></i>
+                <div class="featured-label"><i class="fa-solid fa-star"></i> Featured Works</div>
+                <div class="featured-title">Pikmin 4</div>
+                <div class="featured-client">Nintendo</div>
+                <div class="featured-desc">Sound effect assets design, production.</div>
+            </a>
+
+            <!-- Work 2 -->
+            <a href="https://sites.google.com/view/kuriko-tw/works/hikayume" class="featured-item" target="_blank">
+                <i class="fa-solid fa-link corner-icon"></i>
+                <div class="featured-label"><i class="fa-solid fa-star"></i> Featured Works</div>
+                <div class="featured-title">Wish Upon a Lustrous Dream</div>
+                <div class="featured-client">Sanrio</div>
+                <div class="featured-desc">Sound effect assets design, production. implementation.<br>Audio mix balance check.<br>Voice edit.</div>
+            </a>
+
+            <!-- Work 3 -->
+            <a href="https://sites.google.com/view/kuriko-tw/works/homura-hime" class="featured-item" target="_blank">
+                <i class="fa-solid fa-link corner-icon"></i>
+                <div class="featured-label"><i class="fa-solid fa-star"></i> Featured Works</div>
+                <div class="featured-title">Homura Hime</div>
+                <div class="featured-client">CrimsonDusk</div>
+                <div class="featured-desc">Sound effect assets design, production.<br>Voice edit.</div>
+            </a>
+
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- 3. Sound Hub (2x2) -->
+        <div class="bento-box item-sound">
+            <div class="box-title"><i class="fa-solid fa-wave-square"></i> Sound Related</div>
+            <div class="sound-stack">
+                <a href="https://sites.google.com/view/kuriko-tw" class="sound-btn primary" target="_blank" title="Works">
+                    <i class="fa-solid fa-briefcase"></i> Works
+                </a>
+                <a href="https://www.youtube.com/@kuriko_tw" class="sound-btn" target="_blank" title="YouTube">
+                    <i class="fa-brands fa-youtube"></i> YouTube
+                </a>
+                <a href="https://www.nicovideo.jp/user/26420940/mylist/34763978" class="sound-btn" target="_blank" title="niconico">
+                    <i class="custom-icon" style="-webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/niconico.svg'); mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/niconico.svg');"></i> niconico
+                </a>
+                <a href="https://soundcloud.com/kuriko_tw" class="sound-btn" target="_blank" title="SoundCloud">
+                    <i class="fa-brands fa-soundcloud"></i> SoundCloud
+                </a>
+                <a href="https://www.mixcloud.com/kuriko_tw/" class="sound-btn" target="_blank" title="Mixcloud">
+                    <i class="fa-brands fa-mixcloud"></i> Mixcloud
+                </a>
+            </div>
+        </div>
+
+        <!-- 4. Bio Tags (2x1) -->
+        <div class="bento-box item-bio">
+            <div class="bio-container">
+                <div class="bio-tag"><img src="https://flagcdn.com/tw.svg" class="flag" alt="TW"> 聲音設計</div>
+                <div class="bio-tag"><img src="https://flagcdn.com/us.svg" class="flag" alt="US"> Sound Design</div>
+                <div class="bio-tag"><img src="https://flagcdn.com/jp.svg" class="flag" alt="JP"> サウンドデザイン</div>
+                <div class="bio-tag">🎧 DJ for fun</div>
+                <div class="bio-tag">🌐 VRChat Addicted</div>
+            </div>
+        </div>
+
+        <!-- 5. SNS Grid (2x1) -->
+        <div class="bento-box item-sns">
+            <div class="box-title"><i class="fa-solid fa-globe"></i> SNS</div>
+            <div class="sns-grid">
+                <a href="https://twitter.com/kuriko_tw" class="sns-btn" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.plurk.com/kuriko_tw" class="sns-btn" target="_blank" title="Plurk"><i class="custom-icon" style="-webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg'); mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg');"></i></a>
+                <a href="https://vrchat.com/home/user/usr_3f44cb8e-fdad-4f70-8b0c-8bd8b7d3e453" class="sns-btn" target="_blank" title="VRChat"><i class="custom-icon" style="-webkit-mask-image: url('../image/vrc.svg'); mask-image: url('../image/vrc.svg');"></i></a>
+                <a href="https://bsky.app/profile/kurikotw.bsky.social" class="sns-btn" target="_blank" title="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+                <a href="https://mixi.social/@kuriko_tw" class="sns-btn" target="_blank" title="mixi2"><i class="custom-icon" style="-webkit-mask-image: url('../image/mixi2.svg'); mask-image: url('../image/mixi2.svg');"></i></a>
+                <a href="https://www.twitch.tv/kuriko_tw" class="sns-btn" target="_blank" title="Twitch"><i class="fa-brands fa-twitch"></i></a>
+                <a href="https://www.instagram.com/kurikotw/" class="sns-btn" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.facebook.com/kurikotw/" class="sns-btn" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+
+        <!-- 6. Contact (4x1) -->
+        <a href="mailto:kuriko.tw@gmail.com" class="bento-box item-contact" title="Email">
+            <i class="fa-regular fa-envelope"></i> Get in Touch
+        </a>
+
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- Catchphrase Rotation ---
+            const phrases = document.querySelectorAll('.catchphrase');
+            let phraseIndex = 0;
+            setInterval(() => {
+                phrases[phraseIndex].classList.remove('active');
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                phrases[phraseIndex].classList.add('active');
+            }, 3000); 
+
+            // --- Featured Works Carousel with Pause on Hover ---
+            const featItems = document.querySelectorAll('.featured-item');
+            const featDots = document.querySelectorAll('.dot');
+            const featBox = document.getElementById('featured-carousel');
+            let featIndex = 0;
+            let featTimer;
+
+            function showFeat(index) {
+                featItems.forEach(item => item.classList.remove('active'));
+                featDots.forEach(dot => dot.classList.remove('active'));
+                featItems[index].classList.add('active');
+                featDots[index].classList.add('active');
+            }
+
+            function nextFeat() {
+                featIndex = (featIndex + 1) % featItems.length;
+                showFeat(featIndex);
+            }
+
+            function startFeatTimer() {
+                // 避免重複設定 Interval
+                if (!featTimer) {
+                    featTimer = setInterval(nextFeat, 4000); // 4秒切換一次
+                }
+            }
+
+            function stopFeatTimer() {
+                clearInterval(featTimer);
+                featTimer = null;
+            }
+
+            // 啟動初始輪播
+            startFeatTimer();
+
+            // 綁定滑鼠與觸控事件
+            featBox.addEventListener('mouseenter', stopFeatTimer);
+            featBox.addEventListener('mouseleave', startFeatTimer);
+            // passive: true 提升滑動效能，避免瀏覽器等待 JS 執行
+            featBox.addEventListener('touchstart', stopFeatTimer, { passive: true });
+            featBox.addEventListener('touchend', startFeatTimer, { passive: true });
+        });
+    </script>
+</body>
+</html>
