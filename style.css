@@ -150,12 +150,12 @@ h1 {
 	padding: 0;
 	cursor: pointer;
 	min-height: 280px; 
+	display: grid; /* 新增：使用 Grid 來處理重疊與自動高度 */
 }
 
 .featured-item {
-	position: absolute;
-	inset: 0;
-	padding: 28px;
+	grid-area: 1 / 1; /* 新增：讓所有輪播項目堆疊在同一個網格空間 */
+	padding: 28px 28px 60px 28px; /* 修改：加大底部的 padding (60px)，保留給輪播圓點空間 */
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
@@ -212,7 +212,7 @@ h1 {
 	color: var(--text-muted);
 	line-height: 1.6;
 	margin-top: auto; 
-	padding-bottom: 16px;
+	/* 移除原本的 padding-bottom，將底部空間交由 featured-item 統一控管 */
 }
 
 .carousel-indicators {
