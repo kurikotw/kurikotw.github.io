@@ -12,7 +12,6 @@
 
 body {
     margin: 0;
-    padding: 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-main);
@@ -47,11 +46,9 @@ body {
     .bento-container {
         grid-template-columns: repeat(4, 1fr);
     }
-    .item-profile  { grid-column: span 2; grid-row: span 2; }
-    .item-featured { grid-column: span 2; grid-row: span 2; }
-    .item-sound    { grid-column: span 2; grid-row: span 2; }
-    .item-bio      { grid-column: span 2; grid-row: span 1; }
-    .item-sns      { grid-column: span 2; grid-row: span 1; }
+    .item-profile, .item-featured, .item-sound { 
+        grid-row: span 2; 
+    }
 }
 
 /* --- Bento Box Base Style --- */
@@ -157,7 +154,7 @@ h1 {
 
 .featured-item {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    inset: 0;
     padding: 28px;
     box-sizing: border-box;
     display: flex;
@@ -294,7 +291,6 @@ h1 {
     flex-direction: column;
     gap: 12px;
     flex-grow: 1;
-    justify-content: flex-start;
 }
 
 .sound-btn {
@@ -353,9 +349,8 @@ h1 {
 
 .sns-btn {
     aspect-ratio: 1 / 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    place-items: center;
     background-color: var(--btn-bg);
     color: var(--text-main);
     text-decoration: none;
@@ -382,12 +377,8 @@ h1 {
     width: 1em;
     height: 1em;
     background-color: currentColor; 
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
+    -webkit-mask: center / contain no-repeat;
+    mask: center / contain no-repeat;
     transition: background-color 0.3s ease;
 }
 
@@ -397,7 +388,6 @@ h1 {
     color: var(--bg-color);
     text-align: center;
     display: flex;
-    flex-direction: row;
     align-items: center;
     gap: 12px;
     font-size: 16px;

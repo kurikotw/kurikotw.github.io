@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kuriko (Hiroshi Lee) - Sound Designer Portfolio. 用聲音跟大家說個故事吧！">
     <title>Kuriko | Sound Designer</title>
+    
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://flagcdn.com">
+    
     <link rel="icon" type="image/x-icon" href="../image/favicon.svg">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="bento-container">
+    <main class="bento-container">
         
-        <!-- 1. Profile Box (2x2) -->
-        <div class="bento-box item-profile">
+        <header class="bento-box item-profile">
             <div class="avatar-container">
                 <img src="../image/head_kuriko_icon.jpg" alt="Kuriko Avatar" onerror="this.src='https://placehold.co/130x130/2d2826/4ba383?text=K'">
             </div>
@@ -24,110 +28,97 @@
                 <div class="catchphrase">Sound Your Story!</div>
                 <div class="catchphrase">音で語ろう！</div>
             </div>
-        </div>
+        </header>
 
-        <!-- 2. Featured Works Carousel (2x2) -->
-        <div class="bento-box bento-interactive-box item-featured" id="featured-carousel">
+        <section class="bento-box bento-interactive-box item-featured" id="featured-carousel" aria-label="Featured Works Carousel">
             
-            <!-- Work 1 -->
-            <a href="https://sites.google.com/view/kuriko-tw/works/pikmin4" class="featured-item active" target="_blank">
-                <i class="fa-solid fa-link corner-icon"></i>
-                <div class="featured-label"><i class="fa-solid fa-star"></i> Featured Works</div>
+            <a href="https://sites.google.com/view/kuriko-tw/works/pikmin4" class="featured-item active" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-link corner-icon" aria-hidden="true"></i>
+                <div class="featured-label"><i class="fa-solid fa-star" aria-hidden="true"></i> Featured Works</div>
                 <div class="featured-title">Pikmin 4</div>
                 <div class="featured-client">Nintendo</div>
                 <div class="featured-desc">Sound effect assets design, production.</div>
             </a>
 
-            <!-- Work 2 -->
-            <a href="https://sites.google.com/view/kuriko-tw/works/hikayume" class="featured-item" target="_blank">
-                <i class="fa-solid fa-link corner-icon"></i>
-                <div class="featured-label"><i class="fa-solid fa-star"></i> Featured Works</div>
+            <a href="https://sites.google.com/view/kuriko-tw/works/hikayume" class="featured-item" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-link corner-icon" aria-hidden="true"></i>
+                <div class="featured-label"><i class="fa-solid fa-star" aria-hidden="true"></i> Featured Works</div>
                 <div class="featured-title">Wish Upon a Lustrous Dream</div>
                 <div class="featured-client">Sanrio</div>
                 <div class="featured-desc">Sound effect assets design, production. implementation.<br>Audio mix balance check.<br>Voice edit.</div>
             </a>
 
-            <!-- Work 3 -->
-            <a href="https://sites.google.com/view/kuriko-tw/works/homura-hime" class="featured-item" target="_blank">
-                <i class="fa-solid fa-link corner-icon"></i>
-                <div class="featured-label"><i class="fa-solid fa-star"></i> Featured Works</div>
+            <a href="https://sites.google.com/view/kuriko-tw/works/homura-hime" class="featured-item" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-link corner-icon" aria-hidden="true"></i>
+                <div class="featured-label"><i class="fa-solid fa-star" aria-hidden="true"></i> Featured Works</div>
                 <div class="featured-title">Homura Hime</div>
                 <div class="featured-client">CrimsonDusk</div>
                 <div class="featured-desc">Sound effect assets design, production.<br>Voice edit.</div>
             </a>
 
-            <!-- Carousel Indicators -->
-            <div class="carousel-indicators">
+            <div class="carousel-indicators" aria-hidden="true">
                 <div class="dot active"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- 3. Sound Hub (2x2) -->
-        <div class="bento-box item-sound">
-            <div class="box-title"><i class="fa-solid fa-wave-square"></i> Sound Related</div>
+        <section class="bento-box item-sound">
+            <h2 class="box-title"><i class="fa-solid fa-wave-square" aria-hidden="true"></i> Sound Related</h2>
             <div class="sound-stack">
-                <!-- 在 style 中設定 --brand-color 來決定 Hover 時的顏色 -->
-                <a href="https://sites.google.com/view/kuriko-tw" class="sound-btn primary" style="--brand-color: var(--accent-green);" target="_blank" title="Works">
-                    <i class="fa-solid fa-briefcase"></i> Works
+                <a href="https://sites.google.com/view/kuriko-tw" class="sound-btn primary" style="--brand-color: var(--accent-green);" target="_blank" rel="noopener noreferrer" title="Works" aria-label="Personal Works Website">
+                    <i class="fa-solid fa-briefcase" aria-hidden="true"></i> Works
                 </a>
-                <a href="https://www.youtube.com/@kuriko_tw" class="sound-btn" style="--brand-color: #FF0033;" target="_blank" title="YouTube">
-                    <i class="fa-brands fa-youtube"></i> YouTube
+                <a href="https://www.youtube.com/@kuriko_tw" class="sound-btn" style="--brand-color: #FF0033;" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube Channel">
+                    <i class="fa-brands fa-youtube" aria-hidden="true"></i> YouTube
                 </a>
-                <a href="https://www.nicovideo.jp/user/26420940/mylist/34763978" class="sound-btn" style="--brand-color: #252525;" target="_blank" title="niconico">
-                    <i class="custom-icon" style="-webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/niconico.svg'); mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/niconico.svg');"></i> niconico
+                <a href="https://www.nicovideo.jp/user/26420940/mylist/34763978" class="sound-btn" style="--brand-color: #252525;" target="_blank" rel="noopener noreferrer" title="niconico" aria-label="niconico Channel">
+                    <i class="custom-icon" style="-webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/niconico.svg'); mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/niconico.svg');" aria-hidden="true"></i> niconico
                 </a>
-                <a href="https://soundcloud.com/kuriko_tw" class="sound-btn" style="--brand-color: #FF7700;" target="_blank" title="SoundCloud">
-                    <i class="fa-brands fa-soundcloud"></i> SoundCloud
+                <a href="https://soundcloud.com/kuriko_tw" class="sound-btn" style="--brand-color: #FF7700;" target="_blank" rel="noopener noreferrer" title="SoundCloud" aria-label="SoundCloud">
+                    <i class="fa-brands fa-soundcloud" aria-hidden="true"></i> SoundCloud
                 </a>
-                <a href="https://www.mixcloud.com/kuriko_tw/" class="sound-btn" style="--brand-color: #5000FF;" target="_blank" title="Mixcloud">
-                    <i class="fa-brands fa-mixcloud"></i> Mixcloud
+                <a href="https://www.mixcloud.com/kuriko_tw/" class="sound-btn" style="--brand-color: #5000FF;" target="_blank" rel="noopener noreferrer" title="Mixcloud" aria-label="Mixcloud">
+                    <i class="fa-brands fa-mixcloud" aria-hidden="true"></i> Mixcloud
                 </a>
                 
-                <!-- Moved Contact Button (不受影響，維持原樣) -->
-                <a href="mailto:kuriko.tw@gmail.com" class="contact-btn" title="Contact Me">
-                    <i class="fa-regular fa-envelope"></i> Contact Me
+                <a href="mailto:kuriko.tw@gmail.com" class="contact-btn" title="Contact Me" aria-label="Send Email">
+                    <i class="fa-regular fa-envelope" aria-hidden="true"></i> Contact Me
                 </a>
             </div>
-        </div>
+        </section>
 
-        <!-- 4. Bio Tags (2x1) -->
-        <div class="bento-box item-bio">
+        <section class="bento-box item-bio">
             <div class="bio-container">
-                <div class="bio-tag"><img src="https://flagcdn.com/tw.svg" class="flag" alt="TW"> 聲音設計</div>
-                <div class="bio-tag"><img src="https://flagcdn.com/us.svg" class="flag" alt="US"> Sound Design</div>
-                <div class="bio-tag"><img src="https://flagcdn.com/jp.svg" class="flag" alt="JP"> サウンドデザイン</div>
+                <div class="bio-tag"><img src="https://flagcdn.com/tw.svg" class="flag" alt="Taiwan Flag"> 聲音設計</div>
+                <div class="bio-tag"><img src="https://flagcdn.com/us.svg" class="flag" alt="US Flag"> Sound Design</div>
+                <div class="bio-tag"><img src="https://flagcdn.com/jp.svg" class="flag" alt="Japan Flag"> サウンドデザイン</div>
                 <div class="bio-tag">🎧 DJ for fun</div>
-				<div class="bio-tag">🎹 VOCALOID</div>
+                <div class="bio-tag">🎹 VOCALOID</div>
                 <div class="bio-tag">🥽 VRChat Addicted</div>
             </div>
-        </div>
+        </section>
 
-        <!-- 5. SNS Grid (2x1) -->
-        <div class="bento-box item-sns">
-            <div class="box-title"><i class="fa-solid fa-globe"></i> SNS</div>
+        <section class="bento-box item-sns">
+            <h2 class="box-title"><i class="fa-solid fa-globe" aria-hidden="true"></i> SNS</h2>
             <div class="sns-grid">
-                <!-- 同樣設定 --brand-color 來決定 Hover 時的顏色 -->
-                <a href="https://twitter.com/kuriko_tw" class="sns-btn" style="--brand-color: #1D9BF0;" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
-                <a href="https://www.plurk.com/kuriko_tw" class="sns-btn" style="--brand-color: #FF574D;" target="_blank" title="Plurk"><i class="custom-icon" style="-webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg'); mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg');"></i></a>
-                <a href="https://vrchat.com/home/user/usr_3f44cb8e-fdad-4f70-8b0c-8bd8b7d3e453" class="sns-btn" style="--brand-color: #FFFFFF;" target="_blank" title="VRChat"><i class="custom-icon" style="-webkit-mask-image: url('../image/vrc.svg'); mask-image: url('../image/vrc.svg');"></i></a>
-                <a href="https://bsky.app/profile/kurikotw.bsky.social" class="sns-btn" style="--brand-color: #0F73FF;" target="_blank" title="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
-                <a href="https://mixi.social/@kuriko_tw" class="sns-btn" style="--brand-color: #FF8A51;" target="_blank" title="mixi2"><i class="custom-icon" style="-webkit-mask-image: url('../image/mixi2.svg'); mask-image: url('../image/mixi2.svg');"></i></a>
-                <a href="https://www.twitch.tv/kuriko_tw" class="sns-btn" style="--brand-color: #6441A5;" target="_blank" title="Twitch"><i class="fa-brands fa-twitch"></i></a>
-                <a href="https://www.instagram.com/kurikotw/" class="sns-btn" style="--brand-color: #F56040;" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.facebook.com/kurikotw/" class="sns-btn" style="--brand-color: #4267B2;" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://twitter.com/kuriko_tw" class="sns-btn" style="--brand-color: #1D9BF0;" target="_blank" rel="noopener noreferrer" title="Twitter" aria-label="Twitter"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a>
+                <a href="https://www.plurk.com/kuriko_tw" class="sns-btn" style="--brand-color: #FF574D;" target="_blank" rel="noopener noreferrer" title="Plurk" aria-label="Plurk"><i class="custom-icon" style="-webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg'); mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg');" aria-hidden="true"></i></a>
+                <a href="https://vrchat.com/home/user/usr_3f44cb8e-fdad-4f70-8b0c-8bd8b7d3e453" class="sns-btn" style="--brand-color: #FFFFFF;" target="_blank" rel="noopener noreferrer" title="VRChat" aria-label="VRChat"><i class="custom-icon" style="-webkit-mask-image: url('../image/vrc.svg'); mask-image: url('../image/vrc.svg');" aria-hidden="true"></i></a>
+                <a href="https://bsky.app/profile/kurikotw.bsky.social" class="sns-btn" style="--brand-color: #0F73FF;" target="_blank" rel="noopener noreferrer" title="Bluesky" aria-label="Bluesky"><i class="fa-brands fa-bluesky" aria-hidden="true"></i></a>
+                <a href="https://mixi.social/@kuriko_tw" class="sns-btn" style="--brand-color: #FF8A51;" target="_blank" rel="noopener noreferrer" title="mixi2" aria-label="mixi2"><i class="custom-icon" style="-webkit-mask-image: url('../image/mixi2.svg'); mask-image: url('../image/mixi2.svg');" aria-hidden="true"></i></a>
+                <a href="https://www.twitch.tv/kuriko_tw" class="sns-btn" style="--brand-color: #6441A5;" target="_blank" rel="noopener noreferrer" title="Twitch" aria-label="Twitch"><i class="fa-brands fa-twitch" aria-hidden="true"></i></a>
+                <a href="https://www.instagram.com/kurikotw/" class="sns-btn" style="--brand-color: #F56040;" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                <a href="https://www.facebook.com/kurikotw/" class="sns-btn" style="--brand-color: #4267B2;" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
             </div>
-        </div>
+        </section>
 
-    </div>
+    </main>
 
-    <!-- Copyright Footer -->
     <footer class="site-footer">
         &copy; 2026 Kuriko aka Hiroshi Lee
     </footer>
 
-    <!-- Scripts -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // --- Catchphrase Rotation ---
@@ -143,6 +134,10 @@
             const featItems = document.querySelectorAll('.featured-item');
             const featDots = document.querySelectorAll('.dot');
             const featBox = document.getElementById('featured-carousel');
+            
+            // 安全機制：若找不到 DOM 元素則中斷，防止報錯
+            if (!featBox || featItems.length === 0 || featDots.length === 0) return;
+
             let featIndex = 0;
             let featTimer;
 
@@ -159,9 +154,8 @@
             }
 
             function startFeatTimer() {
-                // 避免重複設定 Interval
                 if (!featTimer) {
-                    featTimer = setInterval(nextFeat, 4000); // 4秒切換一次
+                    featTimer = setInterval(nextFeat, 4000);
                 }
             }
 
@@ -170,13 +164,10 @@
                 featTimer = null;
             }
 
-            // 啟動初始輪播
             startFeatTimer();
 
-            // 綁定滑鼠與觸控事件
             featBox.addEventListener('mouseenter', stopFeatTimer);
             featBox.addEventListener('mouseleave', startFeatTimer);
-            // passive: true 提升滑動效能，避免瀏覽器等待 JS 執行
             featBox.addEventListener('touchstart', stopFeatTimer, { passive: true });
             featBox.addEventListener('touchend', startFeatTimer, { passive: true });
         });
