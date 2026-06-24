@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuriko | Sound Designer</title>
-	<link rel="icon" type="image/x-icon" href="../image/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="../image/favicon.svg">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     
@@ -166,6 +166,8 @@
         .item-featured {
             padding: 0; /* 讓內部的 a 標籤完整填滿，方便點擊 */
             cursor: pointer;
+            /* 修正：加入 min-height 防止絕對定位的子元素導致父容器高度塌陷 */
+            min-height: 280px; 
         }
 
         .featured-item {
