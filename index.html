@@ -6,6 +6,7 @@
     <title>Kuriko | Sound Designer</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    
     <style>
         :root {
             --bg-color: #1e1b1a;
@@ -26,7 +27,9 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* 調整為垂直排列以便加入 footer */
+            align-items: center;    /* 水平置中 */
+            justify-content: center;/* 垂直置中 */
             min-height: 100vh;
             padding: 40px 20px;
             box-sizing: border-box;
@@ -46,7 +49,7 @@
             .bento-container {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .item-profile, .item-featured, .item-sound, .item-bio, .item-sns, .item-contact { 
+            .item-profile, .item-featured, .item-sound, .item-bio, .item-sns { 
                 grid-column: span 2; 
             }
         }
@@ -61,7 +64,6 @@
             .item-sound    { grid-column: span 2; grid-row: span 2; }
             .item-bio      { grid-column: span 2; grid-row: span 1; }
             .item-sns      { grid-column: span 2; grid-row: span 1; }
-            .item-contact  { grid-column: span 4; grid-row: span 1; }
         }
 
         /* --- Bento Box Base Style --- */
@@ -306,7 +308,7 @@
             flex-direction: column;
             gap: 12px;
             flex-grow: 1;
-            justify-content: center;
+            justify-content: flex-start; /* 讓內部連結靠上對齊 */
         }
 
         .sound-btn {
@@ -326,25 +328,35 @@
         .sound-btn i, .sound-btn .custom-icon {
             margin-right: 14px;
             font-size: 18px;
-            color: var(--accent-green);
+            /* 預設為與文字同色 (白色)，移除原本的 var(--accent-green) */
             width: 20px;
             text-align: center;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, background-color 0.2s ease;
         }
 
+        /* 加入動態的 Hover 變色處理，使用 --brand-color */
         .sound-btn:hover {
             background-color: var(--btn-hover);
-            border-color: var(--accent-green);
-            transform: translateX(6px); 
+            border-color: var(--brand-color, var(--accent-green));
+            transform: translateY(-4px);
+        }
+
+        .sound-btn:hover i {
+            color: var(--brand-color, var(--accent-green));
+        }
+
+        .sound-btn:hover .custom-icon {
+            background-color: var(--brand-color, var(--accent-green));
         }
 
         .sound-btn.primary {
             background-color: rgba(75, 163, 131, 0.1);
             border-color: rgba(75, 163, 131, 0.3);
         }
+        
         .sound-btn.primary:hover {
             background-color: rgba(75, 163, 131, 0.2);
-            border-color: var(--accent-green);
+            border-color: var(--brand-color, var(--accent-green));
         }
 
         /* --- Section: SNS Grid --- */
@@ -369,16 +381,17 @@
             border: 1px solid var(--card-border);
         }
 
+        /* SNS 變色機制，一樣讀取 --brand-color */
         .sns-btn:hover {
             background-color: var(--btn-hover);
-            border-color: var(--accent-green);
-            color: var(--accent-green);
+            border-color: var(--brand-color, var(--accent-green));
+            color: var(--brand-color, var(--accent-green));
             transform: translateY(-4px);
             box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
 
         .sns-btn:hover .custom-icon {
-            background-color: var(--accent-green);
+            background-color: var(--brand-color, var(--accent-green));
         }
 
         .custom-icon {
@@ -395,28 +408,38 @@
             transition: background-color 0.3s ease;
         }
 
-        /* --- Section: Contact --- */
-        .item-contact {
+        /* --- Contact Button (Moved inside Sound Hub) --- */
+        .contact-btn {
             background-color: var(--accent-green);
             color: var(--bg-color);
             text-align: center;
             display: flex;
             flex-direction: row;
-            justify-content: center;
             align-items: center;
             gap: 12px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            padding: 24px;
+            padding: 16px 20px;
             text-decoration: none;
-            border: none;
+            border-radius: 16px;
             transition: all 0.3s ease;
+            margin-top: auto; /* 利用 auto margin 將按鈕推到底部對齊 */
         }
 
-        .item-contact:hover {
+        .contact-btn:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(75, 163, 131, 0.4);
+            box-shadow: 0 8px 20px rgba(75, 163, 131, 0.4);
             background-color: #58b896;
+        }
+
+        /* --- Footer (Copyright) --- */
+        .site-footer {
+            margin-top: 36px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
     </style>
@@ -480,20 +503,26 @@
         <div class="bento-box item-sound">
             <div class="box-title"><i class="fa-solid fa-wave-square"></i> Sound Related</div>
             <div class="sound-stack">
-                <a href="https://sites.google.com/view/kuriko-tw" class="sound-btn primary" target="_blank" title="Works">
+                <!-- 在 style 中設定 --brand-color 來決定 Hover 時的顏色 -->
+                <a href="https://sites.google.com/view/kuriko-tw" class="sound-btn primary" style="--brand-color: var(--accent-green);" target="_blank" title="Works">
                     <i class="fa-solid fa-briefcase"></i> Works
                 </a>
-                <a href="https://www.youtube.com/@kuriko_tw" class="sound-btn" target="_blank" title="YouTube">
+                <a href="https://www.youtube.com/@kuriko_tw" class="sound-btn" style="--brand-color: #FF0033;" target="_blank" title="YouTube">
                     <i class="fa-brands fa-youtube"></i> YouTube
                 </a>
-                <a href="https://www.nicovideo.jp/user/26420940/mylist/34763978" class="sound-btn" target="_blank" title="niconico">
+                <a href="https://www.nicovideo.jp/user/26420940/mylist/34763978" class="sound-btn" style="--brand-color: #252525;" target="_blank" title="niconico">
                     <i class="custom-icon" style="-webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/niconico.svg'); mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/niconico.svg');"></i> niconico
                 </a>
-                <a href="https://soundcloud.com/kuriko_tw" class="sound-btn" target="_blank" title="SoundCloud">
+                <a href="https://soundcloud.com/kuriko_tw" class="sound-btn" style="--brand-color: #FF7700;" target="_blank" title="SoundCloud">
                     <i class="fa-brands fa-soundcloud"></i> SoundCloud
                 </a>
-                <a href="https://www.mixcloud.com/kuriko_tw/" class="sound-btn" target="_blank" title="Mixcloud">
+                <a href="https://www.mixcloud.com/kuriko_tw/" class="sound-btn" style="--brand-color: #5000FF;" target="_blank" title="Mixcloud">
                     <i class="fa-brands fa-mixcloud"></i> Mixcloud
+                </a>
+                
+                <!-- Moved Contact Button (不受影響，維持原樣) -->
+                <a href="mailto:kuriko.tw@gmail.com" class="contact-btn" title="Contact Me">
+                    <i class="fa-regular fa-envelope"></i> Contact Me
                 </a>
             </div>
         </div>
@@ -505,7 +534,8 @@
                 <div class="bio-tag"><img src="https://flagcdn.com/us.svg" class="flag" alt="US"> Sound Design</div>
                 <div class="bio-tag"><img src="https://flagcdn.com/jp.svg" class="flag" alt="JP"> サウンドデザイン</div>
                 <div class="bio-tag">🎧 DJ for fun</div>
-                <div class="bio-tag">🌐 VRChat Addicted</div>
+				<div class="bio-tag">🎹 VOCALOID</div>
+                <div class="bio-tag">🥽 VRChat Addicted</div>
             </div>
         </div>
 
@@ -513,23 +543,24 @@
         <div class="bento-box item-sns">
             <div class="box-title"><i class="fa-solid fa-globe"></i> SNS</div>
             <div class="sns-grid">
-                <a href="https://twitter.com/kuriko_tw" class="sns-btn" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
-                <a href="https://www.plurk.com/kuriko_tw" class="sns-btn" target="_blank" title="Plurk"><i class="custom-icon" style="-webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg'); mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg');"></i></a>
-                <a href="https://vrchat.com/home/user/usr_3f44cb8e-fdad-4f70-8b0c-8bd8b7d3e453" class="sns-btn" target="_blank" title="VRChat"><i class="custom-icon" style="-webkit-mask-image: url('../image/vrc.svg'); mask-image: url('../image/vrc.svg');"></i></a>
-                <a href="https://bsky.app/profile/kurikotw.bsky.social" class="sns-btn" target="_blank" title="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
-                <a href="https://mixi.social/@kuriko_tw" class="sns-btn" target="_blank" title="mixi2"><i class="custom-icon" style="-webkit-mask-image: url('../image/mixi2.svg'); mask-image: url('../image/mixi2.svg');"></i></a>
-                <a href="https://www.twitch.tv/kuriko_tw" class="sns-btn" target="_blank" title="Twitch"><i class="fa-brands fa-twitch"></i></a>
-                <a href="https://www.instagram.com/kurikotw/" class="sns-btn" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.facebook.com/kurikotw/" class="sns-btn" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <!-- 同樣設定 --brand-color 來決定 Hover 時的顏色 -->
+                <a href="https://twitter.com/kuriko_tw" class="sns-btn" style="--brand-color: #1D9BF0;" target="_blank" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="https://www.plurk.com/kuriko_tw" class="sns-btn" style="--brand-color: #FF574D;" target="_blank" title="Plurk"><i class="custom-icon" style="-webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg'); mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/plurk.svg');"></i></a>
+                <a href="https://vrchat.com/home/user/usr_3f44cb8e-fdad-4f70-8b0c-8bd8b7d3e453" class="sns-btn" style="--brand-color: #FFFFFF;" target="_blank" title="VRChat"><i class="custom-icon" style="-webkit-mask-image: url('../image/vrc.svg'); mask-image: url('../image/vrc.svg');"></i></a>
+                <a href="https://bsky.app/profile/kurikotw.bsky.social" class="sns-btn" style="--brand-color: #0F73FF;" target="_blank" title="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+                <a href="https://mixi.social/@kuriko_tw" class="sns-btn" style="--brand-color: #FF8A51;" target="_blank" title="mixi2"><i class="custom-icon" style="-webkit-mask-image: url('../image/mixi2.svg'); mask-image: url('../image/mixi2.svg');"></i></a>
+                <a href="https://www.twitch.tv/kuriko_tw" class="sns-btn" style="--brand-color: #6441A5;" target="_blank" title="Twitch"><i class="fa-brands fa-twitch"></i></a>
+                <a href="https://www.instagram.com/kurikotw/" class="sns-btn" style="--brand-color: #F56040;" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.facebook.com/kurikotw/" class="sns-btn" style="--brand-color: #4267B2;" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             </div>
         </div>
 
-        <!-- 6. Contact (4x1) -->
-        <a href="mailto:kuriko.tw@gmail.com" class="bento-box item-contact" title="Email">
-            <i class="fa-regular fa-envelope"></i> Get in Touch
-        </a>
-
     </div>
+
+    <!-- Copyright Footer -->
+    <footer class="site-footer">
+        &copy; 2026 Kuriko aka Hiroshi Lee
+    </footer>
 
     <!-- Scripts -->
     <script>
