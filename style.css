@@ -342,21 +342,23 @@ h1 {
 
 /* --- Section: SNS Grid --- */
 .sns-grid {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	display: flex;
+	flex-wrap: wrap;
 	gap: 12px;
 	width: 100%;
 }
 
 .sns-btn {
-	aspect-ratio: 1 / 1;
+	width: 85px;
+	height: 85px;
+	flex-shrink: 0;
 	display: grid;
 	place-items: center;
 	background-color: var(--btn-bg);
 	color: var(--text-main);
 	text-decoration: none;
 	border-radius: 18px;
-	font-size: 22px;
+	font-size: 28px;
 	transition: all 0.3s ease;
 	border: 1px solid var(--card-border);
 }
